@@ -21,7 +21,7 @@ library(DT)
 library(lubridate)
 library(pcaPP)
  
-
+library(png)
  library(dplyr)
 
 
@@ -376,14 +376,16 @@ graph_HAP_Bot_Chez<-amBarplot(x = "Station", y = "Valeur", data = dfPC_hap_EcoQu
 graph_Mtx_Bot_Chez <- ggplotly(ggplot(dfPC_metx_EcoQuaChez, aes(x = Parametre, y = Valeur,colour = Parametre)) + 
   geom_boxplot()+  facet_wrap(Station ~., scale = "free_y")+theme(axis.text.x = element_text(angle = 90,  hjust = 1, vjust = 0), 
                                                                   axis.line = element_blank(), axis.ticks.x = element_blank(),
-                                                                   axis.title.x = element_blank()
+                                                                   axis.title.x = element_blank(),
+                                                                  legend.title = element_blank()
                                                                   
-                                                                  )
+                                                                  ) 
    ) 
 
 graph_Pesti_Bot_Chez <-ggplotly(ggplot(dfPC_pesti_EcoQuaChez, aes(x = Parametre, y = Valeur,colour = Parametre)) +  
   geom_boxplot()+  facet_wrap(Station ~., scale = "free_y")+theme(axis.text.x = element_text(angle = 90,  hjust = 1, vjust = 0),  axis.line = element_blank(), axis.ticks.x = element_blank(),
-                                                                  axis.title.x = element_blank()
+                                                                  axis.title.x = element_blank(),
+                                                                  legend.title = element_blank()
                                                                   )
    ) 
 
@@ -394,7 +396,8 @@ graph_HAP_BO3<-ggplotly( ggplot(dfPC_hap_BO3, aes(x = Station, y = Valeur,fill=P
 graph_Mtx_BO3 <- ggplotly(ggplot(dfPC_metx_BO3, aes(x = Parametre, y = Valeur,colour = Parametre)) + 
                             geom_boxplot()+  facet_wrap(Station ~., scale = "free_y")+theme(axis.text.x = element_text(angle = 90,  hjust = 1, vjust = 0), 
                                                                                             axis.line = element_blank(), axis.ticks.x = element_blank(),
-                                                                                            axis.title.x = element_blank()
+                                                                                            axis.title.x = element_blank(),
+                                                                                            legend.title = element_blank()
                             )
 ) 
 
@@ -403,7 +406,8 @@ graph_Mtx_BO3 <- ggplotly(ggplot(dfPC_metx_BO3, aes(x = Parametre, y = Valeur,co
 
 graph_Pesti_BO3 <-ggplotly(ggplot(dfPC_pesti_BO3, aes(x = Parametre, y = Valeur,colour = Parametre)) + 
                              geom_boxplot()+  facet_wrap(Station ~., scale = "free_y")+theme(axis.text.x = element_text(angle = 90,  hjust = 1, vjust = 0),  axis.line = element_blank(), axis.ticks.x = element_blank(),
-                                                                                             axis.title.x = element_blank()
+                                                                                             axis.title.x = element_blank(),
+                                                                                             legend.title = element_blank()
                              )
 ) 
 
@@ -419,7 +423,8 @@ graph_HAP_VAB<-ggplotly( ggplot(dfPC_hap_vAB, aes(x = Station, y = Valeur,fill=P
 graph_Mtx_VAB <- ggplotly(ggplot(dfPC_metx_VAB, aes(x = Parametre, y = Valeur,colour = Parametre)) + 
                             geom_boxplot()+  facet_wrap(Station ~., scale = "free_y")+theme(axis.text.x = element_text(angle = 90,  hjust = 1, vjust = 0), 
                                                                                             axis.line = element_blank(), axis.ticks.x = element_blank(),
-                                                                                            axis.title.x = element_blank()
+                                                                                            axis.title.x = element_blank(),
+                                                                                            legend.title = element_blank()
                             )
 ) 
 
@@ -428,7 +433,8 @@ graph_Mtx_VAB <- ggplotly(ggplot(dfPC_metx_VAB, aes(x = Parametre, y = Valeur,co
 
 graph_Pesti_VAB <-ggplotly(ggplot(dfPC_pesti_VAB, aes(x = Parametre, y = Valeur,colour = Parametre)) + 
                              geom_boxplot()+  facet_wrap(Station ~., scale = "free_y")+theme(axis.text.x = element_text(angle = 90,  hjust = 1, vjust = 0),  axis.line = element_blank(), axis.ticks.x = element_blank(),
-                                                                                             axis.title.x = element_blank()
+                                                                                             axis.title.x = element_blank(),
+                                                                                             legend.title = element_blank()
                              )
 ) 
 
@@ -533,7 +539,8 @@ ui <- dashboardPage(
       menuItem("Site 2: Bassin BO3", icon = icon("th"), tabName = "BO3"     ),
       menuItem("Site 3: Bassin du Vertou", icon = icon("file-code-o"),tabName = "Vertou")
       ,
-      menuItem("Localisation des sites", icon = icon("map-marked-alt"),tabName = "Carto")
+      menuItem("Localisation des sites", icon = icon("map-marked-alt"),tabName = "Carto"),
+      menuItem("A propos", icon = icon("user-friends"),tabName = "About")
     )
     
     
@@ -1114,10 +1121,55 @@ ui <- dashboardPage(
         
         
         
-      )#Fin du  tabItem(Carto)
+      ),
+      #Fin du  tabItem(Carto)
       
       
-      
+      tabItem(
+        
+        tabName = "About",
+        h1("Projet Matriochkas"),br(),br(),
+        h2(" F. Rodriguez, V. Ruban - Laboratoire Eau et Environnement - Juillet 2019"),br(),br(),
+        
+        HTML('<center><img src="logo_agence_eau.png" hspace="20"><img src="logo_matriochkas.png" hspace="20"> <img src="logo_afb.png"></center>'),br(),br(),
+        
+ 
+        
+        
+        h2("Evaluation des performances d'ouvrages type"),br(),
+        
+        h3("Résumé"),br(),
+        h4("
+          Trois types d’ouvrages : un bassin sec, un basin en eau et une noue, situés dans des contextes différents ont été suivis entre août 2017 et décembre 2018. 
+          Une dizaine d’échantillons a été analysée pour chaque site. Les concentrations en matières en suspension (MES) sont généralement faibles. 
+          Pour l’ensemble des ouvrages, les concentrations en métaux trace mesurées dans les eaux en entrée et sortie dépassent fréquemment les normes de qualité environnementale. 
+          Les métaux les plus abondants sont Ti > Zn > Sr > As / Cu pour les bassins et Zn > Sr > Ti > Cu > Ni pour la noue. Quel que soit l’ouvrage on observe une grande variabilité des concentrations, tant en entrée qu’en sortie.
+          Quel que soit l’ouvrage, on n’observe peu ou pas d’abattement des concentrations en métaux, en lien avec les faibles concentrations en MES. ", align="justify"),
+        
+        h4("Les concentrations en HAP sont faibles dans l’ensemble mais le Benzo[a]pyrène dépasse les normes en sortie pour le bassin sec et la noue. 
+        Ces concentrations sont inférieures à celles généralement rapportées pour d’autres bassins dans des contextes semblables.
+        La configuration des ouvrages, en particulier celle du bassin sec (fossé interceptant une partie des effluents destinés au bassin) peut expliquer cette constatation. 
+        Sept pesticides sont quantifiés pour le bassin sec, le glyphosate dépasse les normes de qualité. 
+        Pour le bassin en eau, 11 pesticides sont quantifiés, (dépassement pour le CYPER et le LMBD). C’est sur la noue, située dans un écoquartier, que paradoxalement le nombre de pesticides est le plus élevé (18) avec 6 molécules dépassant les normes. On ne constate pas d’abattement des concentrations.
+          En termes d’abattement des flux de polluants, la noue semble être plus performante mais il faut garder présent à l’esprit que ces abattements doivent être relativisés en raison des incertitudes liées au débit et à la mesure analytique et qui sont très rarement pris en compte.
+          
+          ", align="justify"),br(),
+        h3("MOTS CLEF :"),
+         h4("Bassin sec, bassin en eau, noue, polluants, métaux trace, HAP, pesticides"),br(),
+        
+        
+        HTML('<center><img src="logo_cstb.png"></center>')
+       
+        
+          
+          
+          
+        
+        
+       
+        
+        
+      )
       
       
       
