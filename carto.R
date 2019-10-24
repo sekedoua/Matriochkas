@@ -10,12 +10,22 @@ library(plyr)
 library(readxl)
 library(shiny)
 library(shinydashboard)
-
+library(readxl)
 library(tidyr)
 library(tidyverse)
 library(xts)
 
-sites_matri <- read.csv(file="./Donnees_test/coordo_sites.csv", header=TRUE, sep=";")
+# Debit_BO3_avalH_2018=readRDS(file="./Donnees_OK/Debit_BO3_avalH_2018_ord.rds")
+# 
+# 
+# Debit_BO3_avalH_tab_2019 = read.csv(file="./Donnees_OK/Debit_BO3_avalH_2019_propre.csv", header=TRUE, sep=",",stringsAsFactors=FALSE)
+# Debit_BO3_avalH_tab_2018 = read.csv(file="./Donnees_OK/Debit_BO3_avalH_2018_propre.csv", header=TRUE, sep=",",stringsAsFactors=FALSE)
+# Debit_BO3_avalH_tab_2017 = read.csv(file="./Donnees_OK/Debit_BO3_avalH_2017_propre.csv", header=TRUE, sep=",",stringsAsFactors=FALSE)
+
+
+
+# Debit_BO3_avalH_tab_2017 = read.csv(file="./Donnees_OK/Debit_BO3_avalH_2017_propre.csv", header=TRUE, sep=",",stringsAsFactors=FALSE)
+sites_matri <- read.csv(file="./Donnees_OK/coordo_sites.csv", header=TRUE, sep=";")
 
 #sites_matri <- read.csv("https://www.dropbox.com/s/vc9m3tk68ero65o/coordo_sites.csv?dl=1",header=TRUE, sep=";")
 
@@ -23,7 +33,9 @@ sites_matri$Latitude <- as.double(sites_matri$Latitude )
 sites_matri$Longitude <- as.double(sites_matri$Longitude)
 sites_matri$Nom_site<-as.character(sites_matri$Nom_site)
 colnames(sites_matri) = c("Num_station", "Latitude", "Longitude","Nom_Site","X") 
-sites_matri<-select (sites_matri,-c(X))
+#sites_matri<-select (sites_matri,-c(X))
+sites_matri <- subset( sites_matri ,select = -X )
+
 #as_tibble(sites_matri)
 
 

@@ -1,25 +1,68 @@
-
+library(dygraphs)
+library(ggplot2)
+library(htmltools)
+library(leaflet)
+library(rmarkdown)
+library(plyr)
+library(readxl)
 library(shiny)
-
 library(shinydashboard)
+library(zoo)
+library(tidyr)
+library(tidyverse)
+library(uuid)
+library(xts)
+library(dplyr)
+library(DT)
+library(lubridate)
 
-ui <- fluidPage(
-  fluidRow(
-    column(4,
-           sliderInput("obs", "Number of observations:",
-                       min = 1, max = 1000, value = 500)
+
+
+library(dplyr)
+
+
+
+library(varhandle)
+library(plotly)
+library(reshape2) 
+library(qdap)
+library(xts)
+
+require(scales)
+require(gridExtra)
+library(dslabs)
+
+library(ggthemes)
+
+library(rAmCharts)
+library(rainbow)
+
+options(warn=-1)
+options(digits=8)
+
+# Only run these examples in interactive R sessions
+ 
+  
+  # A basic shiny app with a plotOutput
+  shinyApp(
+    ui = fluidPage(
+      sidebarLayout(
+        sidebarPanel(
+          actionButton("newplot", "New plot")
+        ),
+        mainPanel(
+          plotOutput("plot")
+        )
+      )
     ),
-    column(8,
-           plotOutput("distPlot")
-    )
+    server = function(input, output) {
+      output$plot <- renderPlot({
+        input$newplot
+        # Add a little noise to the cars data
+        cars2 <- cars + rnorm(nrow(cars))
+        plot(cars2)
+      })
+    }
   )
-)
-
-server <- function(input, output) {
-  output$distPlot <- renderPlot({
-    hist(rnorm(input$obs))
-  })
-}
-
-shinyApp(ui, server)
-
+  
+ 
